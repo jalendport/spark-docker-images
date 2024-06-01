@@ -23,7 +23,7 @@ jobs:
       images: ${{ steps.filter-shared.outputs.result }}
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Filter paths with changes
         uses: dorny/paths-filter@v3
         id: filter
@@ -44,7 +44,7 @@ jobs:
     if: ${{ needs.changes.outputs.images != '[]' }}
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Get version number
         uses: mad9000/actions-find-and-replace-string@2
         id: version
