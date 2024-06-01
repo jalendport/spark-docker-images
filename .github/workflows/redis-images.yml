@@ -1,0 +1,24 @@
+name: Redis Images
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - redis/**
+      - .github/workflows/redis-images.yml
+      - .github/workflows/generic.yml
+  workflow_dispatch:
+jobs:
+  generic:
+    uses: ./.github/workflows/generic.yml
+    with:
+      image-name: "redis"
+      latest: "7.2"
+      filters: |
+        shared: &shared
+          - .github/workflows/redis-images.yml
+          - .github/workflows/generic.yml
+        redis-7.2:
+          - redis/7.2/**
+          - *shared
+    secrets: inherit
