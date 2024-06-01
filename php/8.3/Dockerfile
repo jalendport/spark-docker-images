@@ -38,8 +38,18 @@ RUN set -ex \
 		mysql-client \
 		zip \
 	# Pecl extensions
-	&& pecl install \
-		imagick \
+	# && pecl install \
+		# imagick \
+	# Imagick is installed from the archive because regular installation fails
+	# See: https://github.com/Imagick/imagick/issues/643#issuecomment-1834361716
+	&& curl -L -o /tmp/imagick.tar.gz https://github.com/Imagick/imagick/archive/refs/tags/3.7.0.tar.gz \
+    && tar --strip-components=1 -xf /tmp/imagick.tar.gz \
+    && phpize \
+    && ./configure \
+    && make \
+    && make install \
+    && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini \
+    && rm -rf /tmp/* \
 	# Configure extensions
 	&& docker-php-ext-configure \
 		gd --with-freetype --with-jpeg \
@@ -56,6 +66,8 @@ RUN set -ex \
 		imagick \
 	# Remove dependencies
 	&& apk del .build-deps
+
+
 
 COPY ./php.ini /usr/local/etc/php/conf.d/yy-craftcms.ini
 COPY ./phpfpm.conf /usr/local/etc/php-fpm.d/yy-craftcms.conf

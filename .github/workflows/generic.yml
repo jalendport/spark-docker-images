@@ -39,7 +39,6 @@ jobs:
     needs: changes
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
       matrix:
         version: ${{ fromJSON(needs.changes.outputs.images) }}
     if: ${{ needs.changes.outputs.images != '[]' }}
