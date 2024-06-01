@@ -1,0 +1,36 @@
+name: PHP Images
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - php/**
+      - .github/workflows/php-images.yml
+      - .github/workflows/generic.yml
+  workflow_dispatch:
+jobs:
+  generic:
+    uses: ./.github/workflows/generic.yml
+    with:
+      image-name: "php"
+      latest: "8.3"
+      filters: |
+        shared: &shared
+          - .github/workflows/php-images.yml
+          - .github/workflows/generic.yml
+        php-7.4:
+          - php/7.4/**
+          - *shared
+        php-8.0:
+          - php/8.0/**
+          - *shared
+        php-8.1:
+          - php/8.1/**
+          - *shared
+        php-8.2:
+          - php/8.2/**
+          - *shared
+        php-8.3:
+          - php/8.3/**
+          - *shared
+    secrets: inherit

@@ -1,0 +1,86 @@
+name: Build and Push
+on:
+  workflow_call:
+    inputs:
+      image-name:
+        required: true
+        type: string
+      latest:
+        required: true
+        type: string
+      filters:
+        required: true
+        type: string
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_PASSWORD:
+        required: true
+      DOCKERHUB_TOKEN:
+        required: true
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      images: ${{ steps.filter.outputs.changes }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Filter paths with changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: ${{ inputs.filters }}
+  build:
+    needs: changes
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        version: ${{ fromJSON(needs.changes.outputs.images) }}
+    if: ${{ needs.changes.outputs.images != '[]' }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Get version number
+        uses: mad9000/actions-find-and-replace-string@2
+        id: version
+        with:
+          source: ${{ matrix.version }}
+          find: "${{ inputs.image-name }}-"
+          replace: ""
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          install: true
+      - name: Generate Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: jalendport/spark-${{ inputs.image-name }}
+          tags: |
+            type=raw,value=${{ steps.version.outputs.value }},enable=true,priority=${{ steps.version.outputs.value }}
+            type=raw,value=latest,enable=${{ steps.version.outputs.value == inputs.latest }},priority=10000
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ inputs.image-name }}/${{ steps.version.outputs.value }}
+          file: ${{ inputs.image-name }}/${{ steps.version.outputs.value }}/Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
+      - name: Update Docker image description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: jalendport/spark-${{ inputs.image-name }}
+          readme-filepath: ${{ inputs.image-name }}/${{ steps.version.outputs.value }}/README.md
+          short-description: ${{ github.event.repository.description }}
