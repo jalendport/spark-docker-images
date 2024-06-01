@@ -1,0 +1,33 @@
+name: Node Images
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - node/**
+      - .github/workflows/node-images.yml
+      - .github/workflows/generic.yml
+  workflow_dispatch:
+jobs:
+  generic:
+    uses: ./.github/workflows/generic.yml
+    with:
+      image-name: "node"
+      latest: "22"
+      filters: |
+        shared: &shared
+          - .github/workflows/node-images.yml
+          - .github/workflows/generic.yml
+        node-16:
+          - node/16/**
+          - *shared
+        node-18:
+          - node/18/**
+          - *shared
+        node-20:
+          - node/20/**
+          - *shared
+        node-22:
+          - node/22/**
+          - *shared
+    secrets: inherit
