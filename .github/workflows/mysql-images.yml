@@ -1,0 +1,27 @@
+name: MySQL Images
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - mysql/**
+      - .github/workflows/mysql-images.yml
+      - .github/workflows/generic.yml
+  workflow_dispatch:
+jobs:
+  generic:
+    uses: ./.github/workflows/generic.yml
+    with:
+      image-name: "mysql"
+      latest: "8.4"
+      filters: |
+        shared: &shared
+          - .github/workflows/mysql-images.yml
+          - .github/workflows/generic.yml
+        mysql-5.7
+          - mysql/5.7/**
+          - *shared
+        mysql-8.4:
+          - mysql/8.4/**
+          - *shared
+    secrets: inherit

@@ -57,8 +57,8 @@ RUN set -ex \
 	# Remove dependencies
 	&& apk del .build-deps
 
-COPY ./php.ini /usr/local/etc/php/conf.d/yy-craftcms.ini
-COPY ./phpfpm.conf /usr/local/etc/php-fpm.d/yy-craftcms.conf
+COPY ./php.ini /usr/local/etc/php/conf.d/yy-spark.ini
+COPY ./phpfpm.conf /usr/local/etc/php-fpm.d/yy-spark.conf
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
