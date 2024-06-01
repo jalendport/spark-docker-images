@@ -20,7 +20,7 @@ jobs:
   changes:
     runs-on: ubuntu-latest
     outputs:
-      images: ${{ steps.filter.outputs.changes }}
+      images: ${{ steps.filter-shared.outputs.result }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -29,6 +29,12 @@ jobs:
         id: filter
         with:
           filters: ${{ inputs.filters }}
+      - name: Filter out shared paths
+        uses: yakubique/filter-json@v1.2
+        id: filter-shared
+        with:
+          input: ${{ steps.filter.outputs.changes }}
+          values: "shared"
   build:
     needs: changes
     runs-on: ubuntu-latest
