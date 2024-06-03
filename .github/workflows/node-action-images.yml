@@ -18,10 +18,10 @@ jobs:
         shared: &shared
           - .github/workflows/node-action-images.yml
           - .github/workflows/generic.yml
-        node-20:
+        node-action-20:
           - node-action/20/**
           - *shared
-        node-22:
+        node-action-22:
           - node-action/22/**
           - *shared
     secrets: inherit
