@@ -1,0 +1,27 @@
+name: PHP Action Images
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - php-action/**
+      - .github/workflows/php-action-images.yml
+      - .github/workflows/generic.yml
+  workflow_dispatch:
+jobs:
+  generic:
+    uses: ./.github/workflows/generic.yml
+    with:
+      image-name: "php-action"
+      latest: "8.3"
+      filters: |
+        shared: &shared
+          - .github/workflows/php-action-images.yml
+          - .github/workflows/generic.yml
+        php-8.2:
+          - php-action/8.2/**
+          - *shared
+        php-8.3:
+          - php-action/8.3/**
+          - *shared
+    secrets: inherit

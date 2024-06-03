@@ -1,0 +1,27 @@
+name: Node Action Images
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - node-action/**
+      - .github/workflows/node-action-images.yml
+      - .github/workflows/generic.yml
+  workflow_dispatch:
+jobs:
+  generic:
+    uses: ./.github/workflows/generic.yml
+    with:
+      image-name: "node-action"
+      latest: "22"
+      filters: |
+        shared: &shared
+          - .github/workflows/node-action-images.yml
+          - .github/workflows/generic.yml
+        node-20:
+          - node-action/20/**
+          - *shared
+        node-22:
+          - node-action/22/**
+          - *shared
+    secrets: inherit
