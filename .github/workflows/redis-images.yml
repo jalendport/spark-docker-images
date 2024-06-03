@@ -16,6 +16,7 @@ jobs:
       latest: "7.2"
       filters: |
         shared: &shared
+          - redis/README.md
           - .github/workflows/redis-images.yml
           - .github/workflows/generic.yml
         redis-7.2:

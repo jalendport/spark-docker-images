@@ -16,6 +16,7 @@ jobs:
       latest: "1.26"
       filters: |
         shared: &shared
+          - nginx/README.md
           - .github/workflows/nginx-images.yml
           - .github/workflows/generic.yml
         nginx-1.26:

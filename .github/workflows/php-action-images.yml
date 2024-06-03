@@ -16,6 +16,7 @@ jobs:
       latest: "8.3"
       filters: |
         shared: &shared
+          - php-action/README.md
           - .github/workflows/php-action-images.yml
           - .github/workflows/generic.yml
         php-action-8.2:

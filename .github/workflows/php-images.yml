@@ -16,6 +16,7 @@ jobs:
       latest: "8.3"
       filters: |
         shared: &shared
+          - php/README.md
           - .github/workflows/php-images.yml
           - .github/workflows/generic.yml
         php-7.4:

@@ -16,6 +16,7 @@ jobs:
       latest: "22"
       filters: |
         shared: &shared
+          - node-action/README.md
           - .github/workflows/node-action-images.yml
           - .github/workflows/generic.yml
         node-action-20:
