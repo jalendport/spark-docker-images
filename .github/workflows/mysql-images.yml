@@ -13,7 +13,6 @@ jobs:
     uses: ./.github/workflows/generic.yml
     with:
       image-name: "mysql"
-      latest: "8.4"
       filters: |
         shared: &shared
           - mysql/README.md
@@ -25,4 +24,7 @@ jobs:
         mysql-8.4:
           - mysql/8.4/**
           - *shared
+      aliases: |
+        mysql-8.4:
+          - latest
     secrets: inherit

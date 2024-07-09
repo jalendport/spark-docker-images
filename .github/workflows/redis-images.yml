@@ -13,7 +13,6 @@ jobs:
     uses: ./.github/workflows/generic.yml
     with:
       image-name: "redis"
-      latest: "7.2"
       filters: |
         shared: &shared
           - redis/README.md
@@ -22,4 +21,7 @@ jobs:
         redis-7.2:
           - redis/7.2/**
           - *shared
+      aliases: |
+        redis-7.2:
+          - latest
     secrets: inherit

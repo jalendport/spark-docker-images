@@ -13,7 +13,6 @@ jobs:
     uses: ./.github/workflows/generic.yml
     with:
       image-name: "node"
-      latest: "22"
       filters: |
         shared: &shared
           - node/README.md
@@ -31,4 +30,7 @@ jobs:
         node-22:
           - node/22/**
           - *shared
+      aliases: |
+        node-22:
+          - latest
     secrets: inherit

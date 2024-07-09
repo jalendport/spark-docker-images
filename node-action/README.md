@@ -1,1 +1,0 @@
-# jalendport/spark-node-action

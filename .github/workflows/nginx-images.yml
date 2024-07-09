@@ -13,7 +13,6 @@ jobs:
     uses: ./.github/workflows/generic.yml
     with:
       image-name: "nginx"
-      latest: "1.26"
       filters: |
         shared: &shared
           - nginx/README.md
@@ -22,4 +21,7 @@ jobs:
         nginx-1.26:
           - nginx/1.26/**
           - *shared
+      aliases: |
+        nginx-1.26:
+          - latest
     secrets: inherit

@@ -1,1 +1,0 @@
-# jalendport/spark-php-action
