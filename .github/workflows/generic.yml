@@ -82,8 +82,9 @@ jobs:
             fi
             TAGS="$TAGS\ntype=raw,value=${tag},enable=true,priority=$priority"
           done
-          echo $TAGS
-          echo "tags=$TAGS" >> $GITHUB_OUTPUT
+          echo "tags<<EOF" >> $GITHUB_OUTPUT
+          echo "$TAGS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
       - name: Generate Docker meta
         if: ${{ !env.ACT }}
         id: meta
