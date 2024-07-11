@@ -1,14 +1,8 @@
 FROM php:7.4-fpm-alpine
 
-RUN mkdir -p /app
-
-WORKDIR /app
-
 # https://github.com/docker-library/php/issues/105#issuecomment-249716758
-RUN set -ex \
-	&& apk update \
-	# Install dependencies
-	&& apk add --no-cache --virtual .build-deps \
+RUN apk add --no-cache --virtual .build-deps \
+		# Build dependencies
 		$PHPIZE_DEPS \
 		freetype-dev \
 		icu-dev \
@@ -19,6 +13,7 @@ RUN set -ex \
 		libxml2-dev \
 		libzip-dev \
 	&& apk add --no-cache \
+		# Runtime dependencies
 		freetype \
 		git \
 		gnu-libiconv \
@@ -56,4 +51,14 @@ COPY ./phpfpm.conf /usr/local/etc/php-fpm.d/yy-spark.conf
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-CMD	php-fpm
+RUN mkdir -p /app /app-tmp
+
+WORKDIR /app
+
+COPY ./composer_install.sh /app-tmp/composer_install.sh
+RUN chmod a+x /app-tmp/composer_install.sh
+
+# Runs "composer install" if composer.json exists but composer.lock or vendor do not exist
+ENTRYPOINT ["/app-tmp/composer_install.sh"]
+
+CMD ["php-fpm"]
