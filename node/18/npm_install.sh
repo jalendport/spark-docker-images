@@ -9,3 +9,5 @@ if [ -f "package.json" ] && ( [ ! -f "package-lock.json" ] || [ ! -d "node_modul
 else
 	echo "No npm installation needed."
 fi
+
+exec "$@"

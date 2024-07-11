@@ -16,3 +16,5 @@ if [ -f "composer.json" ] && ( [ ! -f "composer.lock" ] || [ ! -d "vendor" ] ); 
 else
 	echo "No composer installation needed."
 fi
+
+exec "$@"
