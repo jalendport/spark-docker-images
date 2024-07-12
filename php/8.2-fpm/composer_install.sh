@@ -7,7 +7,6 @@ if [ -f "composer.json" ] && ( [ ! -f "composer.lock" ] || [ ! -d "vendor" ] ); 
 	echo "Running composer install..."
 	composer \
 		--no-ansi \
-		--no-dev \
 		--no-interaction \
 		--no-progress \
 		--no-scripts \
