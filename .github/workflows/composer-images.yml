@@ -1,0 +1,30 @@
+name: Composer Images
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - composer/**
+      - .github/workflows/composer-images.yml
+      - .github/workflows/generic.yml
+  workflow_dispatch:
+jobs:
+  generic:
+    uses: ./.github/workflows/generic.yml
+    with:
+      image-name: "composer"
+      filters: |
+        shared: &shared
+          - composer/README.md
+          - .github/workflows/composer-images.yml
+          - .github/workflows/generic.yml
+        composer-1.10:
+          - composer/1.10/**
+          - *shared
+        composer-2.7:
+          - composer/2.7/**
+          - *shared
+      aliases: |
+        composer-2.7:
+          - latest
+    secrets: inherit
