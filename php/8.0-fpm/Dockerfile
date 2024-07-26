@@ -24,6 +24,7 @@ RUN apk add --no-cache --virtual .build-deps \
 		libpng \
 		libxml2 \
 		libzip \
+		mariadb-connector-c \
 		mysql-client \
 		zip \
 	# Pecl extensions
