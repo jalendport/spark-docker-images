@@ -1,4 +1,4 @@
-FROM php:8.0-cli-alpine
+FROM php:8.4-fpm-alpine
 
 RUN apk add --no-cache --virtual .build-deps \
 		# Build dependencies
@@ -52,6 +52,9 @@ RUN apk add --no-cache --virtual .build-deps \
 	# Remove dependencies
 	&& apk del .build-deps
 
+COPY ./php.ini /usr/local/etc/php/conf.d/yy-spark.ini
+COPY ./phpfpm.conf /usr/local/etc/php-fpm.d/yy-spark.conf
+
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 WORKDIR /app
@@ -61,4 +64,4 @@ COPY --chmod=+x ./composer_install.sh /app-tmp/composer_install.sh
 # Runs "composer install" if composer.json exists but composer.lock or vendor do not exist
 ENTRYPOINT ["/app-tmp/composer_install.sh"]
 
-CMD ["php"]
+CMD ["php-fpm"]

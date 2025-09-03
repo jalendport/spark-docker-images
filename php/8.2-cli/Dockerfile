@@ -1,6 +1,5 @@
 FROM php:8.2-cli-alpine
 
-# https://github.com/docker-library/php/issues/105#issuecomment-249716758
 RUN apk add --no-cache --virtual .build-deps \
 		# Build dependencies
 		$PHPIZE_DEPS \
@@ -12,6 +11,9 @@ RUN apk add --no-cache --virtual .build-deps \
 		libtool \
 		libxml2-dev \
 		libzip-dev \
+		libwebp-dev \
+		libavif-dev \
+		libheif-dev \
 	&& apk add --no-cache \
 		# Runtime dependencies
 		freetype \
@@ -27,12 +29,15 @@ RUN apk add --no-cache --virtual .build-deps \
 		mariadb-connector-c \
 		mysql-client \
 		zip \
+		libwebp \
+		libavif \
+		libheif \
 	# Pecl extensions
 	&& pecl install \
 		imagick \
 	# Configure extensions
 	&& docker-php-ext-configure \
-		gd --with-freetype --with-jpeg \
+		gd --with-freetype --with-jpeg --with-webp --with-avif \
 	# Install extensions
 	&& docker-php-ext-install -j$(nproc) \
 		bcmath \
@@ -49,12 +54,9 @@ RUN apk add --no-cache --virtual .build-deps \
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-RUN mkdir -p /app /app-tmp
-
 WORKDIR /app
 
-COPY ./composer_install.sh /app-tmp/composer_install.sh
-RUN chmod a+x /app-tmp/composer_install.sh
+COPY --chmod=+x ./composer_install.sh /app-tmp/composer_install.sh
 
 # Runs "composer install" if composer.json exists but composer.lock or vendor do not exist
 ENTRYPOINT ["/app-tmp/composer_install.sh"]

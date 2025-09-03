@@ -48,6 +48,12 @@ jobs:
         php-8.3-fpm:
           - php/8.3-fpm/**
           - *shared
+        php-8.4-cli:
+          - php/8.4-cli/**
+          - *shared
+        php-8.4-fpm:
+          - php/8.4-fpm/**
+          - *shared
       aliases: |
         php-7.4-cli:
           - 7.4
@@ -59,8 +65,10 @@ jobs:
           - 8.2
         php-8.3-cli:
           - 8.3
+        php-8.4-cli:
+          - 8.4
           - latest
           - latest-cli
-        php-8.3-fpm:
+        php-8.4-fpm:
           - latest-fpm
     secrets: inherit
