@@ -37,7 +37,7 @@ RUN apk add --no-cache --virtual .build-deps \
 		imagick \
 	# Configure extensions
 	&& docker-php-ext-configure \
-		gd --with-freetype --with-jpeg --with-webp --with-avif \
+		gd --with-freetype --with-jpeg --with-webp \
 	# Install extensions
 	&& docker-php-ext-install -j$(nproc) \
 		bcmath \
