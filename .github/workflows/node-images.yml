@@ -30,7 +30,10 @@ jobs:
         node-22:
           - node/22/**
           - *shared
+        node-24:
+          - node/24/**
+          - *shared
       aliases: |
-        node-22:
+        node-24:
           - latest
     secrets: inherit
