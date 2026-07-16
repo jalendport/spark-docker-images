@@ -55,7 +55,7 @@ RUN apk add --no-cache --virtual .build-deps \
 COPY ./php.ini /usr/local/etc/php/conf.d/yy-spark.ini
 COPY ./phpfpm.conf /usr/local/etc/php-fpm.d/yy-spark.conf
 
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
 WORKDIR /app
 
