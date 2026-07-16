@@ -38,6 +38,8 @@ jobs:
     needs: changes
     runs-on: ubuntu-latest
     strategy:
+      # Images are independent artifacts; one failing must not cancel the rest
+      fail-fast: false
       matrix:
         version: ${{ fromJSON(needs.changes.outputs.images) }}
     if: ${{ needs.changes.outputs.images != '[]' }}
