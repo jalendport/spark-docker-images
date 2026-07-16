@@ -1,0 +1,6 @@
+ignored:
+  # Alpine drops old package versions from its repositories, so pinning them
+  # makes builds fail once a version ages out
+  - DL3018
+  # This is "-j$(nproc)", and nproc prints a single integer
+  - SC2046

@@ -1,0 +1,27 @@
+name: Lint
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+jobs:
+  workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+      - name: Install PyYAML
+        run: pip install pyyaml
+      - name: Check the workflows against the directories on disk
+        run: python3 .github/scripts/validate-workflows.py
+  dockerfiles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+      - name: Lint the Dockerfiles
+        run: |
+          find . -name Dockerfile -print0 \
+            | xargs -0 docker run --rm -v "$PWD":/repo -w /repo \
+                hadolint/hadolint hadolint --no-color
