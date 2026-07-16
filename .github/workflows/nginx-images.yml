@@ -15,9 +15,10 @@ jobs:
       image-name: "nginx"
       filters: |
         shared: &shared
-          - nginx/README.md
           - .github/workflows/nginx-images.yml
           - .github/workflows/generic.yml
+        readme:
+          - nginx/README.md
         nginx-1.26:
           - nginx/1.26/**
           - *shared

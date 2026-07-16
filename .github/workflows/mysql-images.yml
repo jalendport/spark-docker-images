@@ -15,9 +15,10 @@ jobs:
       image-name: "mysql"
       filters: |
         shared: &shared
-          - mysql/README.md
           - .github/workflows/mysql-images.yml
           - .github/workflows/generic.yml
+        readme:
+          - mysql/README.md
         mysql-5.7:
           - mysql/5.7/**
           - *shared

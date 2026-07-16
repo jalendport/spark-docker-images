@@ -15,9 +15,10 @@ jobs:
       image-name: "php"
       filters: |
         shared: &shared
-          - php/README.md
           - .github/workflows/php-images.yml
           - .github/workflows/generic.yml
+        readme:
+          - php/README.md
         php-7.4-cli:
           - php/7.4-cli/**
           - *shared

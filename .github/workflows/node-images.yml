@@ -15,9 +15,10 @@ jobs:
       image-name: "node"
       filters: |
         shared: &shared
-          - node/README.md
           - .github/workflows/node-images.yml
           - .github/workflows/generic.yml
+        readme:
+          - node/README.md
         node-16:
           - node/16/**
           - *shared

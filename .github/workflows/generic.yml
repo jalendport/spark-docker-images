@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       images: ${{ steps.filter-shared.outputs.result }}
+      readme: ${{ steps.filter.outputs.readme }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
@@ -28,11 +29,11 @@ jobs:
         id: filter
         with:
           filters: ${{ inputs.filters }}
-      - name: Filter out shared paths
+      - name: Filter out the paths that are not versions
         id: filter-shared
         env:
           CHANGES: ${{ steps.filter.outputs.changes }}
-        run: echo "result=$(jq -c '. - ["shared"]' <<< "$CHANGES")" >> "$GITHUB_OUTPUT"
+        run: echo "result=$(jq -c '. - ["shared", "readme"]' <<< "$CHANGES")" >> "$GITHUB_OUTPUT"
   build:
     needs: changes
     runs-on: ubuntu-latest
@@ -108,8 +109,16 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
+  # The README is outside the build context and cannot affect the image, so
+  # this runs on its own rather than once per version behind a rebuild
+  describe:
+    needs: changes
+    runs-on: ubuntu-latest
+    if: ${{ needs.changes.outputs.readme == 'true' && !github.event.act }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
       - name: Update Docker image description
-        if: ${{ !github.event.act }}
         uses: peter-evans/dockerhub-description@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}

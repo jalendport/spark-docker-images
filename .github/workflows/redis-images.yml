@@ -15,9 +15,10 @@ jobs:
       image-name: "redis"
       filters: |
         shared: &shared
-          - redis/README.md
           - .github/workflows/redis-images.yml
           - .github/workflows/generic.yml
+        readme:
+          - redis/README.md
         redis-7.2:
           - redis/7.2/**
           - *shared
