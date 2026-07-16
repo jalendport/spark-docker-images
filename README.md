@@ -1,4 +1,4 @@
-<h1 align="center">Spark Docker Images</h1>
+<h1 align="center">Spark - Docker Images</h1>
 
 <p align="center"><em>Docker images for developing and deploying Spark-based projects.</em></p>
 
