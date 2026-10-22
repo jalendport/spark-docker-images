@@ -34,7 +34,10 @@ jobs:
         node-24:
           - node/24/**
           - *shared
+        node-26:
+          - node/26/**
+          - *shared
       aliases: |
-        node-24:
+        node-26:
           - latest
     secrets: inherit

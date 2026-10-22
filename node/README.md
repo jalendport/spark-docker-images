@@ -15,7 +15,8 @@ Published for `linux/amd64` and `linux/arm64`.
 | `20`     | Node 20 |
 | `22`     | Node 22 |
 | `24`     | Node 24 |
-| `latest` | `24`    |
+| `26`     | Node 26 |
+| `latest` | `26`    |
 
 Pin a version in real projects — `latest` moves when a new runtime lands.
 
