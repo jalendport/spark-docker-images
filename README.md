@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/icon.svg" alt="Spark - Docker Images" width="80" height="80"></p>
+
 <h1 align="center">Spark - Docker Images</h1>
 
 <p align="center"><em>Docker images for developing and deploying Spark-based projects.</em></p>
