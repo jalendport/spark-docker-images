@@ -128,22 +128,8 @@ node/24/Dockerfile         # → jalendport/spark-node:24
 
 The directory name is the tag. A per-image workflow in `.github/workflows/` declares the versions and their alias tags, then calls `generic.yml`, which builds and pushes them. Adding a version means adding a directory and naming it in that image's workflow — a version the workflow does not name is never built, so `validate-workflows.py` checks the two against each other.
 
-## Building locally
-
-```sh
-docker build -t spark-php:8.4-fpm php/8.4-fpm
-```
-
-Before pushing a change to the workflows:
-
 ```sh
 python3 .github/scripts/validate-workflows.py
-```
-
-The workflows themselves can be run with [act](https://github.com/nektos/act). `event.json` sets `act: true`, which the workflows read to skip the login, push, and Docker Hub steps:
-
-```sh
-act push --eventpath event.json
 ```
 
 ## Support
