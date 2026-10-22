@@ -1,4 +1,4 @@
-FROM php:8.4-cli-alpine
+FROM php:8.4.27-cli-alpine
 
 RUN apk add --no-cache --virtual .build-deps \
 		# Build dependencies
