@@ -8,17 +8,18 @@ Built from [jalendport/spark-docker-images](https://github.com/jalendport/spark-
 
 Every version publishes a `-cli` and an `-fpm` variant, for `linux/amd64` and `linux/arm64`.
 
-| Tag                                      | Variant                 |
-| ---------------------------------------- | ----------------------- |
-| `7.4-cli` `7.4-fpm`                      | PHP 7.4                 |
-| `8.0-cli` `8.0-fpm`                      | PHP 8.0                 |
-| `8.1-cli` `8.1-fpm`                      | PHP 8.1                 |
-| `8.2-cli` `8.2-fpm`                      | PHP 8.2                 |
-| `8.3-cli` `8.3-fpm`                      | PHP 8.3                 |
-| `8.4-cli` `8.4-fpm`                      | PHP 8.4                 |
-| `7.4`, `8.0`, `8.1`, `8.2`, `8.3`, `8.4` | the matching `-cli` tag |
-| `latest`, `latest-cli`                   | `8.4-cli`               |
-| `latest-fpm`                             | `8.4-fpm`               |
+| Tag                                             | Variant                 |
+| ----------------------------------------------- | ----------------------- |
+| `7.4-cli` `7.4-fpm`                             | PHP 7.4                 |
+| `8.0-cli` `8.0-fpm`                             | PHP 8.0                 |
+| `8.1-cli` `8.1-fpm`                             | PHP 8.1                 |
+| `8.2-cli` `8.2-fpm`                             | PHP 8.2                 |
+| `8.3-cli` `8.3-fpm`                             | PHP 8.3                 |
+| `8.4-cli` `8.4-fpm`                             | PHP 8.4                 |
+| `8.5-cli` `8.5-fpm`                             | PHP 8.5                 |
+| `7.4`, `8.0`, `8.1`, `8.2`, `8.3`, `8.4`, `8.5` | the matching `-cli` tag |
+| `latest`, `latest-cli`                          | `8.5-cli`               |
+| `latest-fpm`                                    | `8.5-fpm`               |
 
 Pin a version in real projects — `latest` moves when a new runtime lands.
 

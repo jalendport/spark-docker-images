@@ -15,23 +15,23 @@
 
 All images are published to Docker Hub under [`jalendport`](https://hub.docker.com/u/jalendport).
 
-| Image                                                            | Tags                                                                                                                   | Purpose                           |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| [`spark-php`](https://hub.docker.com/r/jalendport/spark-php)     | `7.4-cli` `7.4-fpm` `8.0-cli` `8.0-fpm` `8.1-cli` `8.1-fpm` `8.2-cli` `8.2-fpm` `8.3-cli` `8.3-fpm` `8.4-cli` `8.4-fpm` | Application runtime               |
-| [`spark-node`](https://hub.docker.com/r/jalendport/spark-node)   | `16` `18` `20` `22` `24`                                                                                                | Front-end builds                  |
-| [`spark-nginx`](https://hub.docker.com/r/jalendport/spark-nginx) | `1.26`                                                                                                                 | Web server, preconfigured for FPM |
-| [`spark-mysql`](https://hub.docker.com/r/jalendport/spark-mysql) | `5.7` `8.4`                                                                                                            | Database                          |
-| [`spark-redis`](https://hub.docker.com/r/jalendport/spark-redis) | `7.2`                                                                                                                  | Cache and queues                  |
+| Image                                                            | Tags                                                                                                                                        | Purpose                           |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| [`spark-php`](https://hub.docker.com/r/jalendport/spark-php)     | `7.4-cli` `7.4-fpm` `8.0-cli` `8.0-fpm` `8.1-cli` `8.1-fpm` `8.2-cli` `8.2-fpm` `8.3-cli` `8.3-fpm` `8.4-cli` `8.4-fpm` `8.5-cli` `8.5-fpm` | Application runtime               |
+| [`spark-node`](https://hub.docker.com/r/jalendport/spark-node)   | `16` `18` `20` `22` `24`                                                                                                                    | Front-end builds                  |
+| [`spark-nginx`](https://hub.docker.com/r/jalendport/spark-nginx) | `1.26`                                                                                                                                      | Web server, preconfigured for FPM |
+| [`spark-mysql`](https://hub.docker.com/r/jalendport/spark-mysql) | `5.7` `8.4`                                                                                                                                 | Database                          |
+| [`spark-redis`](https://hub.docker.com/r/jalendport/spark-redis) | `7.2`                                                                                                                                       | Cache and queues                  |
 
 ### Alias tags
 
 Every image carries `latest`, pointing at the newest version. `spark-php` carries a few more, because it publishes two variants per version:
 
-| Alias                                    | Points at               |
-| ---------------------------------------- | ----------------------- |
-| `latest`, `latest-cli`                   | `8.4-cli`               |
-| `latest-fpm`                             | `8.4-fpm`               |
-| `7.4`, `8.0`, `8.1`, `8.2`, `8.3`, `8.4` | the matching `-cli` tag |
+| Alias                                           | Points at               |
+| ----------------------------------------------- | ----------------------- |
+| `latest`, `latest-cli`                          | `8.5-cli`               |
+| `latest-fpm`                                    | `8.5-fpm`               |
+| `7.4`, `8.0`, `8.1`, `8.2`, `8.3`, `8.4`, `8.5` | the matching `-cli` tag |
 
 Pin a version in real projects — `latest` moves when a new runtime lands.
 
