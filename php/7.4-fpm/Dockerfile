@@ -32,9 +32,11 @@ RUN apk add --no-cache --virtual .build-deps \
 		libwebp \
 		libavif \
 		libheif \
-	# Pecl extensions
-	&& pecl install \
-		imagick \
+	# Fetch the imagick source; PECL is not used
+	&& curl -fsSL -o /tmp/imagick.tar.gz https://github.com/Imagick/imagick/archive/refs/tags/3.8.1.tar.gz \
+	&& mkdir -p /tmp/imagick \
+	&& tar -xzf /tmp/imagick.tar.gz -C /tmp/imagick --strip-components=1 \
+	&& rm /tmp/imagick.tar.gz \
 	# Configure extensions
 	&& docker-php-ext-configure \
 		gd --with-freetype --with-jpeg --with-webp \
@@ -46,9 +48,8 @@ RUN apk add --no-cache --virtual .build-deps \
 		pdo_mysql \
 		soap \
 		zip \
-	# Enable extensions
-	&& docker-php-ext-enable \
-		imagick \
+		/tmp/imagick \
+	&& rm -r /tmp/imagick \
 	# Remove dependencies
 	&& apk del .build-deps
 
